@@ -1,0 +1,15 @@
+{
+    "version": "0.1",
+    "language": "en",
+    "words": [
+        "hoge",
+        "fuga",
+        "piyo"
+    ],
+    "flagWords": [
+        "hte"
+    ],
+    "ignoreWords": [
+        "vuex"
+    ]
+}

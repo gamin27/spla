@@ -1,0 +1,10 @@
+# Write your query or mutation here
+query allCharacters {
+  characters {
+    results {
+      id
+      name
+      image
+    }
+  }
+}
