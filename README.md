@@ -1,4 +1,4 @@
-# vue-3-and-apollo-client-3
+# Splatoon App
 
 Create Vue3 + TypeScript + Apollo, ad + AWS Amplify.
 
