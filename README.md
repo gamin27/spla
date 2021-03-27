@@ -1,6 +1,6 @@
 # Splatoon App
 
-Create Vue3 + TypeScript + Apollo, ad + AWS Amplify.
+Create Vue3 + TypeScript + Apollo, and + AWS Amplify.
 
 ## Project setup
 
