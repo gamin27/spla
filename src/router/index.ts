@@ -2,6 +2,8 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import Home from '../views/Home.vue'
 import VModelTestPage from '../views/VModelTestPage.vue'
 import ApolloTestPage from '../views/ApolloTestPage.vue'
+import AmplifyTestPage from '../views/AmplifyTestPage.vue'
+
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
@@ -23,6 +25,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/apollo-test-page',
     name: 'ApolloTestPage',
     component: ApolloTestPage,
+  },
+  {
+    path: '/amplify-test-page',
+    name: 'AmplifyTestPage',
+    component: AmplifyTestPage,
   },
 ]
 
