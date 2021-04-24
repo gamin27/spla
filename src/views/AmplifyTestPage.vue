@@ -10,8 +10,12 @@
       <label for="num2" style="display: block">足されるもの</label>
       <input type="number" name="num2" v-model="num2" />
     </div>
-    <div>
+    <div style="margin-top: 24px">
       <button type="button" @click="submit">Call API</button>
+    </div>
+    <div style="margin-top: 48px">
+      <div v-if="isLoading" style="color: red">loading...</div>
+      <div>答え: {{ answer }}</div>
     </div>
   </div>
 </template>
@@ -31,14 +35,14 @@ const useCallAPI = (num1: number, num2: number) => {
   // todo: サーバサイドのプロパティ名を適切なものに変える
   const raw = JSON.stringify({ firstName: num1, lastName: num2 })
   const myRedirect = 'follow'
-  fetch('https://zt8gesobv3.execute-api.us-east-1.amazonaws.com/dev', {
+  return fetch('https://zt8gesobv3.execute-api.us-east-1.amazonaws.com/dev', {
     method: 'POST',
     headers: myHeaders,
     body: raw,
     redirect: myRedirect,
   })
     .then((response) => response.text())
-    .then((result) => alert(JSON.parse(result).body))
+    .then((result) => JSON.parse(result).body as string)
     .catch((error) => console.log('error', error))
 }
 export default defineComponent({
@@ -46,21 +50,30 @@ export default defineComponent({
   setup() {
     const num1 = ref<number | null>(null)
     const num2 = ref<number | null>(null)
+    const answer = ref('')
+    const isLoading = ref(false)
     const submit = () => {
       if (num1.value === null || num2.value === null) {
         alert('未入力がある余')
         return
       }
-      const call = useCallAPI
-      call(num1.value, num2.value)
+      const fetch = useCallAPI
+      isLoading.value = true
+      fetch(num1.value, num2.value).then((result) => {
+        // todo: 型をなんとかする
+        answer.value = result as string
+        isLoading.value = false
+      })
+      console.log(answer.value)
     }
 
     return {
       num1,
       num2,
       submit,
+      answer,
+      isLoading,
     }
   },
 })
 </script>
-<style scoped></style>
