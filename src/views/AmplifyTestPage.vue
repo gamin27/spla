@@ -20,11 +20,11 @@
       </div>
       <div style="margin-top: 16px">
         <label for="killNumber" style="display: block">キル数</label>
-        <input type="number" name="killNumber" v-model="killNumber" />
+        <input type="number" min="0" name="killNumber" v-model="killNumber" />
       </div>
       <div style="margin-top: 16px">
         <label for="deathNumber" style="display: block">デス数</label>
-        <input type="number" name="deathNumber" v-model="deathNumber" />
+        <input type="number" min="0" name="deathNumber" v-model="deathNumber" />
       </div>
       <div style="margin-top: 24px">
         <button type="button" @click="submit">Call API</button>
@@ -52,7 +52,6 @@ type FormData = {
 const useCallAPI = (data: FormData) => {
   const myHeaders = new Headers()
   myHeaders.append('Content-Type', 'application/json')
-  // todo: サーバサイドのプロパティ名を適切なものに変える
   const raw = JSON.stringify({ ...data })
   const myRedirect = 'follow'
   return fetch('https://zt8gesobv3.execute-api.us-east-1.amazonaws.com/dev', {
@@ -79,6 +78,7 @@ export default defineComponent({
     const answer = ref('')
     const isLoading = ref(false)
     const submit = () => {
+      // todo: 全ての項目でバリデーションを反映させる
       if (formData.playerName === null || formData.ruleName === null) {
         alert('未入力がある余')
         return
