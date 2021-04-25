@@ -68,7 +68,7 @@ const useCallAPI = (data: FormData) => {
 export default defineComponent({
   name: 'AmplifyTestPage',
   setup() {
-    const formData = reactive({
+    const formData = reactive<FormData>({
       playerName: null,
       ruleName: gachiRole[0].name,
       stageName: stageInfo[0].name,
@@ -79,8 +79,12 @@ export default defineComponent({
     const isLoading = ref(false)
     const submit = () => {
       // todo: 全ての項目でバリデーションを反映させる
-      if (formData.playerName === null || formData.ruleName === null) {
+      if (formData.killNumber === null || formData.deathNumber === null) {
         alert('未入力がある余')
+        return
+      }
+      if (formData?.killNumber < 0 || formData?.deathNumber < 0) {
+        alert('人間様余、kill/deathは０以上で入力するのだぞ')
         return
       }
       const fetch = useCallAPI
