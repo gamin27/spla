@@ -2,6 +2,7 @@
   <div id="spla-amplify">
     <h1>Spla Amplify</h1>
     <div>
+      <!-- todo:バリデーションをつける -->
       <label for="playerName" style="display: block">プレイヤー</label>
       <input type="text" name="playerName" v-model="playerName" />
     </div>
@@ -83,6 +84,7 @@ export default defineComponent({
         alert('未入力がある余')
         return
       }
+      // todo:間にハイフンが入っても通ってしまう不具合を直す
       if (formData?.killNumber < 0 || formData?.deathNumber < 0) {
         alert('人間様余、kill/deathは０以上で入力するのだぞ')
         return
