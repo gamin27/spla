@@ -2,6 +2,7 @@
   <div id="spla-amplify">
     <h1>Spla Amplify</h1>
     <div>
+      <!-- todo:バリデーションをつける -->
       <label for="playerName" style="display: block">プレイヤー</label>
       <input type="text" name="playerName" v-model="playerName" />
     </div>
@@ -20,11 +21,11 @@
       </div>
       <div style="margin-top: 16px">
         <label for="killNumber" style="display: block">キル数</label>
-        <input type="number" name="killNumber" v-model="killNumber" />
+        <input type="number" min="0" name="killNumber" v-model="killNumber" />
       </div>
       <div style="margin-top: 16px">
         <label for="deathNumber" style="display: block">デス数</label>
-        <input type="number" name="deathNumber" v-model="deathNumber" />
+        <input type="number" min="0" name="deathNumber" v-model="deathNumber" />
       </div>
       <div style="margin-top: 24px">
         <button type="button" @click="submit">Call API</button>
@@ -68,7 +69,7 @@ const useCallAPI = async (data: FormData) => {
 export default defineComponent({
   name: 'WinningPercentage',
   setup() {
-    const formData = reactive({
+    const formData = reactive<FormData>({
       playerName: null,
       ruleName: gachiRole[0].name,
       stageName: stageInfo[0].name,
@@ -78,8 +79,14 @@ export default defineComponent({
     const answer = ref('')
     const isLoading = ref(false)
     const submit = () => {
-      if (formData.playerName === null || formData.ruleName === null) {
+      // todo: 全ての項目でバリデーションを反映させる
+      if (formData.killNumber === null || formData.deathNumber === null) {
         alert('未入力がある余')
+        return
+      }
+      // todo:間にハイフンが入っても通ってしまう不具合を直す
+      if (formData?.killNumber < 0 || formData?.deathNumber < 0) {
+        alert('人間様余、kill/deathは０以上で入力するのだぞ')
         return
       }
       const fetch = useCallAPI
