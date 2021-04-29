@@ -13,7 +13,7 @@ import { defineComponent, ref } from 'vue'
 export default defineComponent({
   name: 'about',
   setup() {
-    const message = ref('This is an about Aizutowai🍮')
+    const message = ref('I am Aizutowai🍮')
     return { message }
   },
 })
