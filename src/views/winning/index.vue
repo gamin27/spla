@@ -45,12 +45,12 @@ import { stageInfo } from '@/assets/stageInfo'
 
 type FormData = {
   playerName: number | null
-  ruleName: string
-  stageName: string
+  ruleName: string | undefined
+  stageName: string | undefined
   killNumber: number | null
   deathNumber: number | null
 }
-const useCallAPI = (data: FormData) => {
+const useCallAPI = async (data: FormData) => {
   const myHeaders = new Headers()
   myHeaders.append('Content-Type', 'application/json')
   const raw = JSON.stringify({ ...data })
@@ -67,7 +67,7 @@ const useCallAPI = (data: FormData) => {
 }
 
 export default defineComponent({
-  name: 'AmplifyTestPage',
+  name: 'WinningPercentage',
   setup() {
     const formData = reactive<FormData>({
       playerName: null,

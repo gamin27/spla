@@ -3,10 +3,8 @@ import router from './router/index';
   <div id="nav">
     <ul class="router-links">
       <li><router-link to="/">Home</router-link></li>
-      <!-- <li><router-link to="/v-model-test-page">V-model</router-link></li> -->
-      <!-- <li><router-link to="/apollo-test-page">Apollo</router-link></li> -->
-      <li><router-link to="/amplify-test-page">Amplify</router-link></li>
-      <li><router-link to="/about">About</router-link></li>
+      <li><router-link to="/WinningPercentage">AISpla</router-link></li>
+      <li><router-link to="/about">AIzutowai</router-link></li>
     </ul>
   </div>
   <router-view />
