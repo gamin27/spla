@@ -10,11 +10,12 @@
   },
   "dependencies": {
     "@apollo/client": "^3.2.3",
+    "@maybecode/vue-next-animejs": "^1.0.5",
     "@vue/apollo-composable": "^4.0.0-alpha.10",
     "core-js": "^3.6.5",
     "graphql": "^15.3.0",
-    "react": "^16.13.1",
     "node-sass": "^4.12.0",
+    "react": "^16.13.1",
     "sass-loader": "^8.0.2",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0",

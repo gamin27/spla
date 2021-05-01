@@ -922,6 +922,13 @@
     cssnano-preset-default "^4.0.0"
     postcss "^7.0.0"
 
+"@maybecode/vue-next-animejs@^1.0.5":
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/@maybecode/vue-next-animejs/-/vue-next-animejs-1.0.5.tgz#aee7f210511336658633a8b1cd27854ef297f451"
+  integrity sha512-zT9L4Pef/s7pUtwCwud+AXL+SJre+zTatCnl4Z8dfwI/DbXFeUbvpTrQ/S6rAknjmlMq3elMaiBwLsSKopTFPA==
+  dependencies:
+    animejs "^3.2.1"
+
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@mrmlnc/readdir-enhanced/-/readdir-enhanced-2.2.1.tgz#524af240d1a360527b730475ecfa1344aa540dde"
@@ -1916,6 +1923,11 @@ amdefine@>=0.0.4:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
   integrity sha1-SlKCrBZHKek2Gbz9OtFR+BfOkfU=
+
+animejs@^3.2.1:
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/animejs/-/animejs-3.2.1.tgz#de9fe2e792f44a777a7fdf6ae160e26604b0cdda"
+  integrity sha512-sWno3ugFryK5nhiDm/2BKeFCpZv7vzerWUcUPyAZLDhMek3+S/p418ldZJbJXo5ZUOpfm2kP2XRO4NJcULMy9A==
 
 ansi-colors@^3.0.0:
   version "3.2.4"
