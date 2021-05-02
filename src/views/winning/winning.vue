@@ -29,6 +29,14 @@
       <div class="margin-top-column">
         <div class="p-fluid">
           <div class="p-field">
+            <label for="killNumber">stage</label>
+            <MultiSelect v-model="selestageNamectedCars" :options="stageInfos" optionLabel="name" placeholder="Select stages" />
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-column">
+        <div class="p-fluid">
+          <div class="p-field">
             <label for="killNumber">kill</label>
             <InputNumber
               name="killNumber"
@@ -78,10 +86,6 @@
 import { defineComponent, ref, toRefs } from 'vue'
 import { gachiRules } from '@/assets/GachiRule'
 import { useStageInfos } from '@/assets/stageInfo'
-import Button from 'primevue/button'
-import InputText from 'primevue/inputtext'
-import Dropdown from 'primevue/dropdown'
-import InputNumber from 'primevue/inputnumber'
 import { useFormData } from '@/views/winning/compositions/useFormData'
 import { useFetchWinning } from '@/views/winning/module/usefetchWinning'
 import { useToast } from 'primevue/usetoast'
@@ -90,10 +94,6 @@ import Toast from 'primevue/toast'
 export default defineComponent({
   name: 'WinningPercentage',
   components: {
-    Button,
-    InputText,
-    Dropdown,
-    InputNumber,
     Toast,
   },
   setup() {
@@ -108,7 +108,7 @@ export default defineComponent({
       // todo: 全ての項目でバリデーションを反映させる
       const errorPoint = ref('')
       console.log('toast')
-      if (formData.playerName === '' || formData.stageName === '' || formData.ruleName === '') {
+      if (formData.playerName === '' || formData.stageName === [] || formData.ruleName === '') {
         if (!formData.playerName) errorPoint.value += 'player name, '
         if (!formData.ruleName) errorPoint.value += 'rule, '
         if (!formData.stageName) errorPoint.value += 'stage, '

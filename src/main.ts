@@ -12,6 +12,7 @@ import CascadeSelect from 'primevue/cascadeselect'
 import Dropdown from 'primevue/dropdown'
 import ToastService from 'primevue/toastservice'
 import InputNumber from 'primevue/inputnumber'
+import MultiSelect from 'primevue/multiselect'
 import 'primevue/resources/themes/saga-blue/theme.css' //theme
 import 'primevue/resources/primevue.min.css' //core css
 import 'primeicons/primeicons.css' //icons
@@ -26,4 +27,5 @@ createApp(App)
   .component('CascadeSelect', CascadeSelect)
   .component('Dropdown', Dropdown)
   .component('InputNumber', InputNumber)
+  .component('MultiSelect', MultiSelect)
   .mount('#app')
