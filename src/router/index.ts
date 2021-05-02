@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import Home from '@/views/home/home.vue'
-import WinningPercentage from '@/views/winning/winning.vue'
-import About from '@/views/about/about.vue'
+import Home from '@/views/home/index.vue'
+import WinningPercentage from '@/views/winning/index.vue'
+import About from '@/views/about/index.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {

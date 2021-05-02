@@ -1,29 +1,38 @@
-// vue
-import { createApp } from 'vue'
+import { createApp, provide, h } from 'vue'
+import { ApolloClient, InMemoryCache } from '@apollo/client'
+import { DefaultApolloClient } from '@vue/apollo-composable'
 import App from './App.vue'
 import router from './router'
 import store from './store'
 
-// prime VUE
-import PrimeVue from 'primevue/config'
-import Button from 'primevue/button'
-import InputText from 'primevue/inputtext'
-import CascadeSelect from 'primevue/cascadeselect'
-import Dropdown from 'primevue/dropdown'
-import ToastService from 'primevue/toastservice'
-import InputNumber from 'primevue/inputnumber'
-import 'primevue/resources/themes/saga-blue/theme.css' //theme
-import 'primevue/resources/primevue.min.css' //core css
-import 'primeicons/primeicons.css' //icons
+const defaultClient = new ApolloClient({
+  uri: 'https://rickandmortyapi.com/graphql/',
+  cache: new InMemoryCache(),
+})
 
-createApp(App)
-  .use(PrimeVue)
+// const query = gql`
+//   query {
+//     characters {
+//       results {
+//         name
+//       }
+//     }
+//   }
+// `
+// defaultClient
+//   .query({
+//     query
+//   })
+//   .then(res => console.log(res))
+
+createApp({
+  setup() {
+    provide(DefaultApolloClient, defaultClient)
+  },
+  render() {
+    return h(App)
+  },
+})
   .use(store)
   .use(router)
-  .use(ToastService)
-  .component('InputText', InputText)
-  .component('Button', Button)
-  .component('CascadeSelect', CascadeSelect)
-  .component('Dropdown', Dropdown)
-  .component('InputNumber', InputNumber)
   .mount('#app')
