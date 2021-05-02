@@ -4,55 +4,66 @@
     <div class="frame">
       <div class="margin-top-column">
         <!-- todo:バリデーションをつける -->
-        <label for="playerName" style="display: block">palyer name</label>
-        <InputText type="text" name="playerName" v-model="playerName" />
+        <div class="p-fluid">
+          <div class="p-field">
+            <label for="playerName" style="display: block">palyer name</label>
+            <InputText type="text" name="playerName" v-model="playerName" />
+          </div>
+        </div>
       </div>
-      <article>
-        <div class="margin-top-column">
-          <label for="ruleName" style="display: block">rule</label>
-          <Dropdown v-model="ruleName" :options="gachiRules" optionLabel="name" placeholder="choose a stage" />
+      <div class="margin-top-column">
+        <div class="p-fluid">
+          <div class="p-field">
+            <label for="ruleName" style="display: block">rule</label>
+            <Dropdown v-model="ruleName" :options="gachiRules" optionLabel="name" placeholder="choose a stage" />
+          </div>
         </div>
-        <div class="margin-top-column">
-          <label for="stageName" style="display: block">stage</label>
-          <Dropdown v-model="stageName" :options="stageInfos" optionLabel="name" placeholder="choose a stage" />
+      </div>
+      <div class="p-fluid">
+        <div class="margin-top-column p-field">
+          <label for="stageName">stage</label>
+          <Dropdown id="stageName" v-model="stageName" :options="stageInfos" optionLabel="name" placeholder="choose a stage" />
         </div>
-        <div class="margin-top-column">
-          <div>
+      </div>
+      <div class="margin-top-column">
+        <div class="p-fluid">
+          <div class="p-field">
             <label for="killNumber">kill</label>
+            <InputNumber
+              name="killNumber"
+              id="killNumberz"
+              v-model="killNumber"
+              :min="0"
+              :max="30"
+              showButtons
+              buttonLayout="horizontal"
+              incrementButtonIcon="pi pi-plus"
+              decrementButtonIcon="pi pi-minus"
+            />
           </div>
-          <InputNumber
-            name="killNumber"
-            id="killNumberz"
-            v-model="killNumber"
-            :min="0"
-            :max="30"
-            showButtons
-            buttonLayout="horizontal"
-            incrementButtonIcon="pi pi-plus"
-            decrementButtonIcon="pi pi-minus"
-          />
         </div>
-        <div class="margin-top-column">
-          <div>
+      </div>
+      <div class="margin-top-column">
+        <div class="p-fluid">
+          <div class="p-field">
             <label for="deathNumber">death</label>
+            <InputNumber
+              name="deathNumber"
+              id="deathNumber"
+              v-model="deathNumber"
+              :min="0"
+              :max="30"
+              showButtons
+              buttonLayout="horizontal"
+              incrementButtonIcon="pi pi-plus"
+              decrementButtonIcon="pi pi-minus"
+            />
           </div>
-          <InputNumber
-            name="deathNumber"
-            id="deathNumber"
-            v-model="deathNumber"
-            :min="0"
-            :max="30"
-            showButtons
-            buttonLayout="horizontal"
-            incrementButtonIcon="pi pi-plus"
-            decrementButtonIcon="pi pi-minus"
-          />
         </div>
-
-        <div class="margin-top-column">
-          <Button :label="'ask IA'" class="submit" @click="submit" />
-        </div>
-      </article>
+      </div>
+      <div class="margin-top-column">
+        <Button :label="'ask IA'" class="submit" @click="submit" />
+      </div>
       <div style="margin-top: 48px">
         <div v-if="isLoading" style="color: red">loading...</div>
         <div>あなたの勝率は・・・: {{ callAnswer }}</div>
@@ -121,6 +132,10 @@ export default defineComponent({
 <style lang="scss">
 #winning {
   font-weight: bold;
+  text-align: left;
+}
+h1 {
+  text-align: center;
 }
 .frame {
   margin: auto;
@@ -128,10 +143,9 @@ export default defineComponent({
   max-width: 80%;
 }
 .margin-top-column {
-  margin-top: 56px;
+  margin-top: 32px;
 }
-
 .submit {
-  background-color: var(--green-300);
+  width: 100%;
 }
 </style>
