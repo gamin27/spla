@@ -1,4 +1,11 @@
-const stageInfo = [
+import { ref, Ref } from 'vue'
+type StageInfo = {
+  id: number
+  name: string
+}
+type StageInfos = StageInfo[]
+
+export const stageInfos: StageInfos = [
   { id: 1, name: 'チョウザメ造船' },
   { id: 2, name: 'ホッケふ頭' },
   { id: 3, name: 'バッテラストリート' },
@@ -17,4 +24,12 @@ const stageInfo = [
   { id: 16, name: 'アジフライスタジアム' },
 ]
 
-export { stageInfo }
+type UseStageInfos = () => {
+  stageInfos: Ref<StageInfos>
+}
+
+const useStageInfos: UseStageInfos = () => {
+  return { stageInfos: ref(stageInfos) }
+}
+
+export { useStageInfos, UseStageInfos }
