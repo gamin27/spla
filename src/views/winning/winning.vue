@@ -14,7 +14,7 @@
         </div>
         <div class="margin-top-column">
           <label for="stageName" style="display: block">stage</label>
-          <Dropdown v-model="stageName" :options="stageInfo" optionLabel="name" placeholder="choose a stage" />
+          <Dropdown v-model="stageName" :options="stageInfos" optionLabel="name" placeholder="choose a stage" />
         </div>
         <div class="margin-top-column">
           <div>
@@ -22,7 +22,7 @@
           </div>
           <InputNumber
             name="killNumber"
-            id="killNumber"
+            id="killNumberz"
             v-model="killNumber"
             :min="0"
             :max="30"
@@ -55,44 +55,22 @@
       </article>
       <div style="margin-top: 48px">
         <div v-if="isLoading" style="color: red">loading...</div>
-        <div>あなたの勝率は・・・: {{ answer }}</div>
+        <div>あなたの勝率は・・・: {{ callAnswer }}</div>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref, toRefs } from 'vue'
+import { defineComponent, ref, toRefs } from 'vue'
 import { gachiRoles } from '@/assets/GachiRolue'
-import { stageInfo } from '@/assets/stageInfo'
+import { useStageInfos } from '@/assets/stageInfo'
 import Button from 'primevue/button'
 import InputText from 'primevue/inputtext'
 import Dropdown from 'primevue/dropdown'
 import InputNumber from 'primevue/inputnumber'
-import { useToast } from 'primevue/toast'
-
-type FormData = {
-  playerName: number | null
-  ruleName: string | undefined
-  stageName: string | undefined
-  killNumber: number | null
-  deathNumber: number | null
-}
-const useCallAPI = async (data: FormData) => {
-  const myHeaders = new Headers()
-  myHeaders.append('Content-Type', 'application/json')
-  const raw = JSON.stringify({ ...data })
-  const myRedirect = 'follow'
-  return fetch('https://zt8gesobv3.execute-api.us-east-1.amazonaws.com/dev', {
-    method: 'POST',
-    headers: myHeaders,
-    body: raw,
-    redirect: myRedirect,
-  })
-    .then((response) => response.text())
-    .then((result) => JSON.parse(result).body as string)
-    .catch((error) => console.log('error', error))
-}
+import { useFormData } from '@/views/winning/compositions/useFormData'
+import { useFetchWinning } from '@/views/winning/module/usefetchWinning'
 
 export default defineComponent({
   name: 'WinningPercentage',
@@ -103,47 +81,37 @@ export default defineComponent({
     InputNumber,
   },
   setup() {
-    const formData = reactive<FormData>({
-      playerName: null,
-      ruleName: gachiRoles[0].name,
-      stageName: stageInfo[0].name,
-      killNumber: 0,
-      deathNumber: 0,
-    })
-    const stageList = ref(stageInfo)
-    const num = ref(0)
-    const answer = ref('')
+    const { formData } = useFormData()
+    const { stageInfos } = useStageInfos()
+    const stageList = ref(stageInfos)
+    const callAnswer = ref('')
     const isLoading = ref(false)
-    const toast = useToast()
+    // todo: toastを書いてみる
+    // const toast = useToast()
+
     const submit = () => {
       // todo: 全ての項目でバリデーションを反映させる
       if (formData.killNumber === null || formData.deathNumber === null) {
         alert('未入力がある余')
         return
       }
-      // todo:間にハイフンが入っても通ってしまう不具合を直す
-      if (formData?.killNumber < 0 || formData?.deathNumber < 0) {
-        alert('人間様余、kill/deathは０以上で入力するのだぞ')
-        return
-      }
-      const fetch = useCallAPI
+      const fetch = useFetchWinning
       isLoading.value = true
       fetch(formData).then((result) => {
         // todo: 型をなんとかする
-        answer.value = result as string
+        callAnswer.value = result as string
         isLoading.value = false
       })
     }
 
     return {
-      stageList,
-      num,
       ...toRefs(formData),
+      stageList,
       submit,
-      answer,
+      callAnswer,
       isLoading,
       gachiRoles,
-      stageInfo,
+      stageInfos,
     }
   },
 })

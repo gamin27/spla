@@ -6,9 +6,9 @@ type GachiRoleData = {
 }
 type GachiRolesData = GachiRoleData[]
 type GachiRoles = Ref<GachiRolesData>
-type FetchGachiRoles = () => { gachiRoles: GachiRoles }
+type FetchGachiRoles = () => { gachiRules: GachiRoles }
 
-const gachiRolesData = [
+export const gachiRoles = [
   { id: 1, name: 'ガチエリア' },
   { id: 2, name: 'ガチヤグラ' },
   { id: 3, name: 'ガチホコバトル' },
@@ -16,9 +16,9 @@ const gachiRolesData = [
 ]
 
 const fetchGachiRoles: FetchGachiRoles = () => {
-  const gachiRoles: GachiRoles = ref(gachiRolesData)
+  const RefGachiRoles: GachiRoles = ref(gachiRoles)
 
-  return { gachiRoles }
+  return { gachiRules: RefGachiRoles }
 }
 
 export { fetchGachiRoles, GachiRoles }
