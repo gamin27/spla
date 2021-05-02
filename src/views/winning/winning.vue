@@ -90,7 +90,6 @@ export default defineComponent({
     const submit = () => {
       // todo: 全ての項目でバリデーションを反映させる
       if (formData.playerName === '' || formData.killNumber === null || formData.deathNumber === null) {
-        // alert('未入力がある余')
         // todo: toastを書いてみる
         console.log('call')
         const toast = useToast()
