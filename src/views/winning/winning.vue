@@ -67,7 +67,8 @@
       </div>
       <div style="margin-top: 48px">
         <div v-if="isLoading" style="color: red">loading...</div>
-        <div>あなたの勝率は・・・: {{ callAnswer }}</div>
+        <div>あなたの勝率は・・・</div>
+        <div>{{ callAnswer }}</div>
       </div>
     </div>
   </div>
@@ -105,9 +106,13 @@ export default defineComponent({
 
     const submit = () => {
       // todo: 全ての項目でバリデーションを反映させる
+      const errorPoint = ref('')
       console.log('toast')
-      if (formData.playerName === '') {
-        toast.add({ severity: 'error', summary: '入力に誤りがある余', detail: 'ここだ余（仮）', life: 3000, group: 'error' })
+      if (formData.playerName === '' || formData.stageName === '' || formData.ruleName === '') {
+        if (!formData.playerName) errorPoint.value += 'player name, '
+        if (!formData.ruleName) errorPoint.value += 'rule, '
+        if (!formData.stageName) errorPoint.value += 'stage, '
+        toast.add({ severity: 'error', summary: '未入力がある余', detail: errorPoint.value, life: 3000, group: 'error' })
 
         return
       }
