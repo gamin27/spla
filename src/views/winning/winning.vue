@@ -10,7 +10,7 @@
       <article>
         <div class="margin-top-column">
           <label for="ruleName" style="display: block">role</label>
-          <Dropdown v-model="ruleName" :options="gachiRole" optionLabel="name" placeholder="choose a stage" />
+          <Dropdown v-model="ruleName" :options="gachiRoles" optionLabel="name" placeholder="choose a stage" />
         </div>
         <div class="margin-top-column">
           <label for="stageName" style="display: block">stage</label>
@@ -63,12 +63,13 @@
 
 <script lang="ts">
 import { defineComponent, reactive, ref, toRefs } from 'vue'
-import { gachiRole } from '@/assets/GachiRolue'
+import { gachiRoles } from '@/assets/GachiRolue'
 import { stageInfo } from '@/assets/stageInfo'
 import Button from 'primevue/button'
 import InputText from 'primevue/inputtext'
 import Dropdown from 'primevue/dropdown'
 import InputNumber from 'primevue/inputnumber'
+import { useToast } from 'primevue/toast'
 
 type FormData = {
   playerName: number | null
@@ -104,7 +105,7 @@ export default defineComponent({
   setup() {
     const formData = reactive<FormData>({
       playerName: null,
-      ruleName: gachiRole[0].name,
+      ruleName: gachiRoles[0].name,
       stageName: stageInfo[0].name,
       killNumber: 0,
       deathNumber: 0,
@@ -113,6 +114,7 @@ export default defineComponent({
     const num = ref(0)
     const answer = ref('')
     const isLoading = ref(false)
+    const toast = useToast()
     const submit = () => {
       // todo: 全ての項目でバリデーションを反映させる
       if (formData.killNumber === null || formData.deathNumber === null) {
@@ -140,7 +142,7 @@ export default defineComponent({
       submit,
       answer,
       isLoading,
-      gachiRole,
+      gachiRoles,
       stageInfo,
     }
   },
