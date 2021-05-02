@@ -20,17 +20,11 @@
           </div>
         </div>
       </div>
-      <div class="p-fluid">
-        <div class="margin-top-column p-field">
-          <label for="stageName">stage</label>
-          <Dropdown id="stageName" v-model="stageName" :options="stageInfos" optionLabel="name" placeholder="choose a stage" />
-        </div>
-      </div>
       <div class="margin-top-column">
         <div class="p-fluid">
           <div class="p-field">
             <label for="killNumber">stage</label>
-            <MultiSelect v-model="selestageNamectedCars" :options="stageInfos" optionLabel="name" placeholder="Select stages" />
+            <MultiSelect id="getStage" v-model="stageNames" :options="stageInfos" optionLabel="name" placeholder="Select stages" />
           </div>
         </div>
       </div>
@@ -108,10 +102,10 @@ export default defineComponent({
       // todo: 全ての項目でバリデーションを反映させる
       const errorPoint = ref('')
       console.log('toast')
-      if (formData.playerName === '' || formData.stageName === [] || formData.ruleName === '') {
+      if (formData.playerName === '' || formData.stageNames === [] || formData.ruleName === '') {
         if (!formData.playerName) errorPoint.value += 'player name, '
         if (!formData.ruleName) errorPoint.value += 'rule, '
-        if (!formData.stageName) errorPoint.value += 'stage, '
+        if (!formData.stageNames) errorPoint.value += 'stage, '
         toast.add({ severity: 'error', summary: '未入力がある余', detail: errorPoint.value, life: 3000, group: 'error' })
 
         return
