@@ -1,14 +1,14 @@
 <template>
   <div id="winning">
-    <Toast position="top-right" group="error" />
-    <h1>Spla Amplify</h1>
+    <Toast position="bottom-right" group="error" class="error-toast" />
+    <h1>Win Rate</h1>
     <div class="frame">
       <div class="margin-top-column">
         <!-- todo:バリデーションをつける -->
         <div class="p-fluid">
           <div class="p-field">
             <label for="playerName" style="display: block">palyer name</label>
-            <InputText type="text" name="playerName" v-model="playerName" />
+            <InputText style="width: 300px" type="text" name="playerName" v-model="playerName" />
           </div>
         </div>
       </div>
@@ -144,6 +144,9 @@ export default defineComponent({
 }
 h1 {
   text-align: center;
+}
+.error-toast {
+  width: 300px;
 }
 .frame {
   margin: auto;

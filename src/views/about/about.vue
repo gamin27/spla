@@ -1,7 +1,7 @@
 <template>
-  <div class="about">
+  <div id="about">
     <h1>{{ message }}</h1>
-    <div>
+    <div class="img">
       <img src="https://pbs.twimg.com/profile_images/1323753389654618112/mX1CvRms_400x400.jpg" alt="Aizutowai" />
     </div>
   </div>
@@ -18,3 +18,14 @@ export default defineComponent({
   },
 })
 </script>
+
+<style lang="scss" scoped>
+#about {
+  margin: 0 16px;
+}
+.img {
+  img {
+    max-width: 100%;
+  }
+}
+</style>
