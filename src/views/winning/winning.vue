@@ -1,39 +1,62 @@
 <template>
-  <div id="spla-amplify">
+  <div id="winning">
     <h1>Spla Amplify</h1>
-    <div>
-      <!-- todo:バリデーションをつける -->
-      <label for="playerName" style="display: block">プレイヤー</label>
-      <input type="text" name="playerName" v-model="playerName" />
-    </div>
-    <article>
-      <div style="margin-top: 16px">
-        <label for="ruleName" style="display: block">ルール</label>
-        <select name="ruleName" v-model="ruleName">
-          <option v-for="item in gachiRole" :value="item.name" :key="item.id">{{ item.name }}</option>
-        </select>
+    <div class="frame">
+      <div class="margin-top-column">
+        <!-- todo:バリデーションをつける -->
+        <label for="playerName" style="display: block">palyer name</label>
+        <InputText type="text" name="playerName" v-model="playerName" />
       </div>
-      <div style="margin-top: 16px">
-        <label for="stageName" style="display: block">ステージ</label>
-        <select name="ruleName" v-model="stageName">
-          <option v-for="item in stageInfo" :value="item.name" :key="item.id">{{ item.name }}</option>
-        </select>
+      <article>
+        <div class="margin-top-column">
+          <label for="ruleName" style="display: block">role</label>
+          <Dropdown v-model="ruleName" :options="gachiRole" optionLabel="name" placeholder="choose a stage" />
+        </div>
+        <div class="margin-top-column">
+          <label for="stageName" style="display: block">stage</label>
+          <Dropdown v-model="stageName" :options="stageInfo" optionLabel="name" placeholder="choose a stage" />
+        </div>
+        <div class="margin-top-column">
+          <div>
+            <label for="killNumber">kill</label>
+          </div>
+          <InputNumber
+            name="killNumber"
+            id="killNumber"
+            v-model="killNumber"
+            :min="0"
+            :max="30"
+            showButtons
+            buttonLayout="horizontal"
+            incrementButtonIcon="pi pi-plus"
+            decrementButtonIcon="pi pi-minus"
+          />
+        </div>
+        <div class="margin-top-column">
+          <div>
+            <label for="deathNumber">death</label>
+          </div>
+          <InputNumber
+            name="deathNumber"
+            id="deathNumber"
+            v-model="deathNumber"
+            :min="0"
+            :max="30"
+            showButtons
+            buttonLayout="horizontal"
+            incrementButtonIcon="pi pi-plus"
+            decrementButtonIcon="pi pi-minus"
+          />
+        </div>
+
+        <div class="margin-top-column">
+          <Button :label="'ask IA'" class="submit" @click="submit" />
+        </div>
+      </article>
+      <div style="margin-top: 48px">
+        <div v-if="isLoading" style="color: red">loading...</div>
+        <div>あなたの勝率は・・・: {{ answer }}</div>
       </div>
-      <div style="margin-top: 16px">
-        <label for="killNumber" style="display: block">キル数</label>
-        <input type="number" min="0" name="killNumber" v-model="killNumber" />
-      </div>
-      <div style="margin-top: 16px">
-        <label for="deathNumber" style="display: block">デス数</label>
-        <input type="number" min="0" name="deathNumber" v-model="deathNumber" />
-      </div>
-      <div style="margin-top: 24px">
-        <button type="button" @click="submit">Call API</button>
-      </div>
-    </article>
-    <div style="margin-top: 48px">
-      <div v-if="isLoading" style="color: red">loading...</div>
-      <div>あなたの勝率は・・・: {{ answer }}</div>
     </div>
   </div>
 </template>
@@ -42,6 +65,10 @@
 import { defineComponent, reactive, ref, toRefs } from 'vue'
 import { gachiRole } from '@/assets/GachiRolue'
 import { stageInfo } from '@/assets/stageInfo'
+import Button from 'primevue/button'
+import InputText from 'primevue/inputtext'
+import Dropdown from 'primevue/dropdown'
+import InputNumber from 'primevue/inputnumber'
 
 type FormData = {
   playerName: number | null
@@ -68,14 +95,22 @@ const useCallAPI = async (data: FormData) => {
 
 export default defineComponent({
   name: 'WinningPercentage',
+  components: {
+    Button,
+    InputText,
+    Dropdown,
+    InputNumber,
+  },
   setup() {
     const formData = reactive<FormData>({
       playerName: null,
       ruleName: gachiRole[0].name,
       stageName: stageInfo[0].name,
-      killNumber: null,
-      deathNumber: null,
+      killNumber: 0,
+      deathNumber: 0,
     })
+    const stageList = ref(stageInfo)
+    const num = ref(0)
     const answer = ref('')
     const isLoading = ref(false)
     const submit = () => {
@@ -96,10 +131,11 @@ export default defineComponent({
         answer.value = result as string
         isLoading.value = false
       })
-      console.log(answer.value)
     }
 
     return {
+      stageList,
+      num,
       ...toRefs(formData),
       submit,
       answer,
@@ -110,3 +146,21 @@ export default defineComponent({
   },
 })
 </script>
+
+<style lang="scss">
+#winning {
+  font-weight: bold;
+}
+.frame {
+  margin: auto;
+  width: 400px;
+  max-width: 80%;
+}
+.margin-top-column {
+  margin-top: 56px;
+}
+
+.submit {
+  background-color: var(--green-300);
+}
+</style>
