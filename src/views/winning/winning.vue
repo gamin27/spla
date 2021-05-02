@@ -1,5 +1,6 @@
 <template>
   <div id="winning">
+    <Toast position="top-right" group="error" />
     <h1>Spla Amplify</h1>
     <div class="frame">
       <div class="margin-top-column">
@@ -62,7 +63,7 @@
         </div>
       </div>
       <div class="margin-top-column">
-        <Button :label="'ask IA'" class="submit" @click="submit" />
+        <Button label="callAPI" class="submit" @click="submit" />
       </div>
       <div style="margin-top: 48px">
         <div v-if="isLoading" style="color: red">loading...</div>
@@ -83,6 +84,7 @@ import InputNumber from 'primevue/inputnumber'
 import { useFormData } from '@/views/winning/compositions/useFormData'
 import { useFetchWinning } from '@/views/winning/module/usefetchWinning'
 import { useToast } from 'primevue/usetoast'
+import Toast from 'primevue/toast'
 
 export default defineComponent({
   name: 'WinningPercentage',
@@ -91,6 +93,7 @@ export default defineComponent({
     InputText,
     Dropdown,
     InputNumber,
+    Toast,
   },
   setup() {
     const { formData } = useFormData()
@@ -98,19 +101,19 @@ export default defineComponent({
     const stageList = ref(stageInfos)
     const callAnswer = ref('')
     const isLoading = ref(false)
+    const toast = useToast()
+
     const submit = () => {
       // todo: 全ての項目でバリデーションを反映させる
-      if (formData.playerName === '' || formData.killNumber === null || formData.deathNumber === null) {
-        // todo: toastを書いてみる
-        console.log('call')
-        const toast = useToast()
-        toast.add({ severity: 'info', summary: 'Info Message', detail: 'Message Content', life: 3000 })
+      console.log('toast')
+      if (formData.playerName === '') {
+        toast.add({ severity: 'error', summary: '入力に誤りがある余', detail: 'ここだ余（仮）', life: 3000, group: 'error' })
+
         return
       }
       const fetch = useFetchWinning
       isLoading.value = true
       fetch(formData).then((result) => {
-        // todo: 型をなんとかする
         callAnswer.value = result as string
         isLoading.value = false
       })
