@@ -71,6 +71,7 @@ import Dropdown from 'primevue/dropdown'
 import InputNumber from 'primevue/inputnumber'
 import { useFormData } from '@/views/winning/compositions/useFormData'
 import { useFetchWinning } from '@/views/winning/module/usefetchWinning'
+import { useToast } from 'primevue/usetoast'
 
 export default defineComponent({
   name: 'WinningPercentage',
@@ -86,13 +87,14 @@ export default defineComponent({
     const stageList = ref(stageInfos)
     const callAnswer = ref('')
     const isLoading = ref(false)
-    // todo: toastを書いてみる
-    // const toast = useToast()
-
     const submit = () => {
       // todo: 全ての項目でバリデーションを反映させる
-      if (formData.killNumber === null || formData.deathNumber === null) {
-        alert('未入力がある余')
+      if (formData.playerName === '' || formData.killNumber === null || formData.deathNumber === null) {
+        // alert('未入力がある余')
+        // todo: toastを書いてみる
+        console.log('call')
+        const toast = useToast()
+        toast.add({ severity: 'info', summary: 'Info Message', detail: 'Message Content', life: 3000 })
         return
       }
       const fetch = useFetchWinning

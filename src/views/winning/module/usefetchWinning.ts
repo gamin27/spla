@@ -1,6 +1,6 @@
 import { FormData } from '../compositions/useFormData'
 
-const useFetchWinning = async (data: FormData) => {
+const useFetchWinning = async (data: FormData): Promise<string | void> => {
   const myHeaders = new Headers()
   myHeaders.append('Content-Type', 'application/json')
   const raw = JSON.stringify({ ...data })

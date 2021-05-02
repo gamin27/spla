@@ -1,8 +1,8 @@
 import { reactive } from 'vue'
 type FormData = {
-  playerName: number | null
-  ruleName: string | undefined
-  stageName: string | undefined
+  playerName: string
+  ruleName: string
+  stageName: string
   killNumber: number | null
   deathNumber: number | null
 }
@@ -11,7 +11,7 @@ type UseFormData = (data?: FormData) => { formData: FormData }
 
 const useFormData: UseFormData = () => {
   const formData = reactive<FormData>({
-    playerName: null,
+    playerName: '',
     ruleName: '',
     stageName: '',
     killNumber: 0,
