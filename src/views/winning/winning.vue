@@ -9,8 +9,8 @@
       </div>
       <article>
         <div class="margin-top-column">
-          <label for="ruleName" style="display: block">role</label>
-          <Dropdown v-model="ruleName" :options="gachiRoles" optionLabel="name" placeholder="choose a stage" />
+          <label for="ruleName" style="display: block">rule</label>
+          <Dropdown v-model="ruleName" :options="gachiRules" optionLabel="name" placeholder="choose a stage" />
         </div>
         <div class="margin-top-column">
           <label for="stageName" style="display: block">stage</label>
@@ -63,7 +63,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, toRefs } from 'vue'
-import { gachiRoles } from '@/assets/GachiRolue'
+import { gachiRules } from '@/assets/GachiRule'
 import { useStageInfos } from '@/assets/stageInfo'
 import Button from 'primevue/button'
 import InputText from 'primevue/inputtext'
@@ -111,7 +111,7 @@ export default defineComponent({
       submit,
       callAnswer,
       isLoading,
-      gachiRoles,
+      gachiRules,
       stageInfos,
     }
   },
