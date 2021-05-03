@@ -7,7 +7,7 @@
         <!-- todo:バリデーションをつける -->
         <div class="p-fluid">
           <div class="p-field">
-            <label for="playerName" style="display: block">palyer name</label>
+            <label for="playerName" style="display: block">player name</label>
             <InputText style="width: 300px" type="text" name="playerName" v-model="playerName" />
           </div>
         </div>
@@ -16,14 +16,25 @@
         <div class="p-fluid">
           <div class="p-field">
             <label for="ruleName" style="display: block">rule</label>
-            <Dropdown v-model="ruleName" :options="gachiRules" optionLabel="name" placeholder="choose a stage" />
+            <Dropdown v-model="ruleName" :options="gachiRules" optionLabel="name" placeholder="select a rule" />
           </div>
         </div>
       </div>
-      <div class="p-fluid">
-        <div class="margin-top-column p-field">
-          <label for="stageName">stage</label>
-          <Dropdown id="stageName" v-model="stageName" :options="stageInfos" optionLabel="name" placeholder="choose a stage" />
+      <div class="margin-top-column">
+        <div class="p-fluid">
+          <div class="p-field">
+            <label for="killNumber">stage</label>
+            <span class="font-weight-thin margin-left-16 font-size-small sub-label">２つまで</span>
+            <MultiSelect
+              id="getStage"
+              v-model="computedStage"
+              display="chip"
+              :options="stageInfos"
+              optionLabel="name"
+              scrollHeight="250px"
+              placeholder="Select stages"
+            />
+          </div>
         </div>
       </div>
       <div class="margin-top-column">
@@ -34,6 +45,7 @@
               name="killNumber"
               id="killNumberz"
               v-model="killNumber"
+              class="input-number"
               :min="0"
               :max="30"
               showButtons
@@ -75,13 +87,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, toRefs } from 'vue'
+import { computed, defineComponent, ref, toRefs } from 'vue'
 import { gachiRules } from '@/assets/GachiRule'
 import { useStageInfos } from '@/assets/stageInfo'
-import Button from 'primevue/button'
-import InputText from 'primevue/inputtext'
-import Dropdown from 'primevue/dropdown'
-import InputNumber from 'primevue/inputnumber'
 import { useFormData } from '@/views/winning/compositions/useFormData'
 import { useFetchWinning } from '@/views/winning/module/usefetchWinning'
 import { useToast } from 'primevue/usetoast'
@@ -90,10 +98,6 @@ import Toast from 'primevue/toast'
 export default defineComponent({
   name: 'WinningPercentage',
   components: {
-    Button,
-    InputText,
-    Dropdown,
-    InputNumber,
     Toast,
   },
   setup() {
@@ -103,15 +107,26 @@ export default defineComponent({
     const callAnswer = ref('')
     const isLoading = ref(false)
     const toast = useToast()
+    const isValidStages = ref(false)
+    const computedStage = computed({
+      get: () => formData.stageNames,
+      set: (value) => {
+        // 選択できるのは２ステージ以下
+        if (formData.stageNames.length < 3 && value.length < 3) formData.stageNames = value
+        // todo : 色を反映させる
+        isValidStages.value = formData.stageNames.length == 2
+        console.log(isValidStages.value)
+      },
+    })
 
     const submit = () => {
       // todo: 全ての項目でバリデーションを反映させる
       const errorPoint = ref('')
       console.log('toast')
-      if (formData.playerName === '' || formData.stageName === '' || formData.ruleName === '') {
+      if (formData.playerName === '' || formData.stageNames === [] || formData.ruleName === '') {
         if (!formData.playerName) errorPoint.value += 'player name, '
         if (!formData.ruleName) errorPoint.value += 'rule, '
-        if (!formData.stageName) errorPoint.value += 'stage, '
+        if (!formData.stageNames) errorPoint.value += 'stage, '
         toast.add({ severity: 'error', summary: '未入力がある余', detail: errorPoint.value, life: 3000, group: 'error' })
 
         return
@@ -125,6 +140,8 @@ export default defineComponent({
     }
 
     return {
+      isValidStages,
+      computedStage,
       ...toRefs(formData),
       stageList,
       submit,
@@ -144,19 +161,40 @@ export default defineComponent({
 }
 h1 {
   text-align: center;
+  font-size: 48px;
+}
+label {
+  font-size: 24px;
+}
+.sub-label {
+  color: #4f4f4f;
 }
 .error-toast {
   width: 300px;
 }
 .frame {
   margin: auto;
-  width: 400px;
-  max-width: 80%;
+  max-width: 300px;
+}
+.p-multiselect-token-label {
+  font-size: 8px;
+}
+.p-inputnumber-input {
+  text-align: center;
 }
 .margin-top-column {
   margin-top: 32px;
 }
+.margin-left-16 {
+  margin-left: 16px;
+}
+.font-size-small {
+  font-size: 16px;
+}
 .submit {
   width: 100%;
+}
+.font-weight-thin {
+  font-weight: 400;
 }
 </style>
