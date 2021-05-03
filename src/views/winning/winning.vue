@@ -7,7 +7,7 @@
         <!-- todo:バリデーションをつける -->
         <div class="p-fluid">
           <div class="p-field">
-            <label for="playerName" style="display: block">palyer name</label>
+            <label for="playerName" style="display: block">player name</label>
             <InputText style="width: 300px" type="text" name="playerName" v-model="playerName" />
           </div>
         </div>
@@ -16,7 +16,13 @@
         <div class="p-fluid">
           <div class="p-field">
             <label for="ruleName" style="display: block">rule</label>
-            <Dropdown v-model="ruleName" :options="gachiRules" optionLabel="name" placeholder="choose a stage" />
+            <Dropdown
+              :class="{ inValid: isValidStages }"
+              v-model="ruleName"
+              :options="gachiRules"
+              optionLabel="name"
+              placeholder="select a rule"
+            />
           </div>
         </div>
       </div>
@@ -24,7 +30,15 @@
         <div class="p-fluid">
           <div class="p-field">
             <label for="killNumber">stage</label>
-            <MultiSelect id="getStage" v-model="stageNames" :options="stageInfos" optionLabel="name" placeholder="Select stages" />
+            <MultiSelect
+              id="getStage"
+              v-model="computedStage"
+              display="chip"
+              :options="stageInfos"
+              optionLabel="name"
+              scrollHeight="250px"
+              placeholder="Select stages"
+            />
           </div>
         </div>
       </div>
@@ -36,6 +50,7 @@
               name="killNumber"
               id="killNumberz"
               v-model="killNumber"
+              class="input-number"
               :min="0"
               :max="30"
               showButtons
@@ -77,7 +92,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, toRefs } from 'vue'
+import { computed, defineComponent, ref, toRefs } from 'vue'
 import { gachiRules } from '@/assets/GachiRule'
 import { useStageInfos } from '@/assets/stageInfo'
 import { useFormData } from '@/views/winning/compositions/useFormData'
@@ -97,6 +112,16 @@ export default defineComponent({
     const callAnswer = ref('')
     const isLoading = ref(false)
     const toast = useToast()
+    const isValidStages = ref(false)
+    const computedStage = computed({
+      get: () => formData.stageNames,
+      set: (value) => {
+        // 選択できるのは２ステージ以下
+        if (formData.stageNames.length < 3 && value.length < 3) formData.stageNames = value
+        // todo : 色を反映させる
+        isValidStages.value = formData.stageNames.length == 2
+      },
+    })
 
     const submit = () => {
       // todo: 全ての項目でバリデーションを反映させる
@@ -119,6 +144,8 @@ export default defineComponent({
     }
 
     return {
+      isValidStages,
+      computedStage,
       ...toRefs(formData),
       stageList,
       submit,
@@ -144,8 +171,16 @@ h1 {
 }
 .frame {
   margin: auto;
-  width: 400px;
-  max-width: 80%;
+  max-width: 300px;
+}
+.inValid {
+  color: gray;
+}
+.p-multiselect-token-label {
+  font-size: 8px;
+}
+.p-inputnumber-input {
+  text-align: center;
 }
 .margin-top-column {
   margin-top: 32px;
