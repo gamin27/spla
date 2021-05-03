@@ -16,13 +16,7 @@
         <div class="p-fluid">
           <div class="p-field">
             <label for="ruleName" style="display: block">rule</label>
-            <Dropdown
-              :class="{ inValid: isValidStages }"
-              v-model="ruleName"
-              :options="gachiRules"
-              optionLabel="name"
-              placeholder="select a rule"
-            />
+            <Dropdown v-model="ruleName" :options="gachiRules" optionLabel="name" placeholder="select a rule" />
           </div>
         </div>
       </div>
@@ -30,6 +24,7 @@
         <div class="p-fluid">
           <div class="p-field">
             <label for="killNumber">stage</label>
+            <span class="font-weight-thin margin-left-16 font-size-small sub-label">２つまで</span>
             <MultiSelect
               id="getStage"
               v-model="computedStage"
@@ -120,6 +115,7 @@ export default defineComponent({
         if (formData.stageNames.length < 3 && value.length < 3) formData.stageNames = value
         // todo : 色を反映させる
         isValidStages.value = formData.stageNames.length == 2
+        console.log(isValidStages.value)
       },
     })
 
@@ -165,6 +161,13 @@ export default defineComponent({
 }
 h1 {
   text-align: center;
+  font-size: 48px;
+}
+label {
+  font-size: 24px;
+}
+.sub-label {
+  color: #4f4f4f;
 }
 .error-toast {
   width: 300px;
@@ -172,9 +175,6 @@ h1 {
 .frame {
   margin: auto;
   max-width: 300px;
-}
-.inValid {
-  color: gray;
 }
 .p-multiselect-token-label {
   font-size: 8px;
@@ -185,7 +185,16 @@ h1 {
 .margin-top-column {
   margin-top: 32px;
 }
+.margin-left-16 {
+  margin-left: 16px;
+}
+.font-size-small {
+  font-size: 16px;
+}
 .submit {
   width: 100%;
+}
+.font-weight-thin {
+  font-weight: 400;
 }
 </style>
