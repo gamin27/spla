@@ -16,7 +16,7 @@ const useErrorMessage: UseErrorMessage = (formData: FormData) => {
 
   if (!formData.playerName) errorPoint.value += 'player name, '
   if (!formData.ruleName) errorPoint.value += 'rule, '
-  if (!formData.stageNames) errorPoint.value += 'stage, '
+  if (formData.stageNames !== []) errorPoint.value += 'stage, '
   return { inValid, errorPoint }
 }
 
