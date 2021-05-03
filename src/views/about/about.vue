@@ -4,6 +4,7 @@
     <div class="img">
       <img src="https://pbs.twimg.com/profile_images/1323753389654618112/mX1CvRms_400x400.jpg" alt="Aizutowai" />
     </div>
+    <!-- todo: gamineのprofileも入れたい -->
   </div>
 </template>
 

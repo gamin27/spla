@@ -1,6 +1,6 @@
 <template>
   <div id="winning">
-    <Toast position="bottom-right" group="error" class="error-toast" />
+    <Toast style="width: 300px" position="bottom-right" group="error" class="error-toast" />
     <h1>Win Rate</h1>
     <div class="frame">
       <div class="margin-top-column">
@@ -93,6 +93,7 @@ import { useStageInfos } from '@/assets/stageInfo'
 import { useFormData } from '@/views/winning/compositions/useFormData'
 import { useFetchWinning } from '@/views/winning/module/usefetchWinning'
 import { useToast } from 'primevue/usetoast'
+import { useErrorMessage } from '@/views/winning/compositions/useErrorMessage'
 import Toast from 'primevue/toast'
 
 export default defineComponent({
@@ -120,15 +121,9 @@ export default defineComponent({
     })
 
     const submit = () => {
-      // todo: 全ての項目でバリデーションを反映させる
-      const errorPoint = ref('')
-      console.log('toast')
-      if (formData.playerName === '' || formData.stageNames === [] || formData.ruleName === '') {
-        if (!formData.playerName) errorPoint.value += 'player name, '
-        if (!formData.ruleName) errorPoint.value += 'rule, '
-        if (!formData.stageNames) errorPoint.value += 'stage, '
+      const { inValid, errorPoint } = useErrorMessage(formData)
+      if (inValid) {
         toast.add({ severity: 'error', summary: '未入力がある余', detail: errorPoint.value, life: 3000, group: 'error' })
-
         return
       }
       const fetch = useFetchWinning
