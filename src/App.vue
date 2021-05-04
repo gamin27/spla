@@ -4,6 +4,7 @@ import router from './router/index';
     <ul class="router-links">
       <li><router-link to="/">Home</router-link></li>
       <li><router-link to="/WinningPercentage">AISpla</router-link></li>
+      <li><router-link to="/stage">Stage</router-link></li>
       <li><router-link to="/about">AIzutowai</router-link></li>
     </ul>
   </div>
