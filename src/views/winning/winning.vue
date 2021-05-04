@@ -25,15 +25,7 @@
           <div class="p-field">
             <label for="killNumber">stage</label>
             <span class="font-weight-thin margin-left-16 font-size-small sub-label">２つまで</span>
-            <MultiSelect
-              id="getStage"
-              v-model="computedStage"
-              display="chip"
-              :options="stageInfos"
-              optionLabel="name"
-              scrollHeight="250px"
-              placeholder="Select stages"
-            />
+            <spla-multi-select :stageNames="stageNames" :stageInfos="stageInfos" @update:stageName="stageNames = $event" />
           </div>
         </div>
       </div>
@@ -95,11 +87,13 @@ import { useFetchWinning } from '@/views/winning/module/usefetchWinning'
 import { useToast } from 'primevue/usetoast'
 import { useErrorMessage } from '@/views/winning/compositions/useErrorMessage'
 import Toast from 'primevue/toast'
+import SplaMultiSelect from './components/spla-multi-select.vue'
 
 export default defineComponent({
   name: 'WinningPercentage',
   components: {
     Toast,
+    SplaMultiSelect,
   },
   setup() {
     const { formData } = useFormData()
@@ -108,15 +102,11 @@ export default defineComponent({
     const callAnswer = ref('')
     const isLoading = ref(false)
     const toast = useToast()
-    const isValidStages = ref(false)
     const computedStage = computed({
       get: () => formData.stageNames,
       set: (value) => {
         // 選択できるのは２ステージ以下
         if (formData.stageNames.length < 3 && value.length < 3) formData.stageNames = value
-        // todo : 色を反映させる
-        isValidStages.value = formData.stageNames.length == 2
-        console.log(isValidStages.value)
       },
     })
 
@@ -136,7 +126,6 @@ export default defineComponent({
     }
 
     return {
-      isValidStages,
       computedStage,
       ...toRefs(formData),
       stageList,
