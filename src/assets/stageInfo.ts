@@ -32,4 +32,4 @@ const useStageInfos: UseStageInfos = () => {
   return { stageInfos: ref(stageInfos) }
 }
 
-export { useStageInfos, UseStageInfos }
+export { useStageInfos, UseStageInfos, StageInfos }
