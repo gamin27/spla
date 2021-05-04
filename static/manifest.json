@@ -1,7 +1,8 @@
 {
   "name": "Spla AI",
   "short_name": "SAI",
-  "start_url": "/",
+  "scope": "/",
+  "start_url": "/index.html",
   "display": "standalone",
   "orientation": "any",
   "background_color": "#fff",
