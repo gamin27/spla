@@ -45,7 +45,7 @@
     "prettier": "^2.2.1",
     "typescript": "~4.1.5"
   },
-  "_id": "vue-3-and-apollo-client-3@0.1.0",
+  "_id": "Spla AI",
   "gitHooks": {
     "pre-commit": "lint-staged"
   },
