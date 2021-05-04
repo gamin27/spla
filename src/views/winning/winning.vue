@@ -121,12 +121,12 @@ export default defineComponent({
     })
 
     const submit = () => {
-      const { inValid, errorPoint } = useErrorMessage(formData)
-      console.log(inValid.value)
-      // if (inValid) {
-      //   toast.add({ severity: 'error', summary: '未入力がある余', detail: errorPoint.value, life: 3000, group: 'error' })
-      //   return
-      // }
+      const { errorPoint } = useErrorMessage(formData)
+      console.log(errorPoint.value)
+      if (errorPoint.value) {
+        toast.add({ severity: 'error', summary: '未入力がある余', detail: errorPoint.value, life: 3000, group: 'error' })
+        return
+      }
       const fetch = useFetchWinning
       isLoading.value = true
       fetch(formData).then((result) => {
