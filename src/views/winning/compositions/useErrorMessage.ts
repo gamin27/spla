@@ -12,7 +12,7 @@ type UseErrorMessage = (
 const useErrorMessage: UseErrorMessage = (formData: FormData) => {
   const inValid = ref(false)
   const errorPoint = ref('')
-  inValid.value = formData.playerName === '' || formData.stageNames === [] || formData.ruleName === ''
+  // inValid.value = formData.playerName === '' || formData.stageNames === [] || formData.ruleName === ''
 
   if (!formData.playerName) errorPoint.value += 'player name, '
   if (!formData.ruleName) errorPoint.value += 'rule, '
