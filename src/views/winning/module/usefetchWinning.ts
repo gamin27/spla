@@ -5,15 +5,24 @@ const useFetchWinning = async (data: FormData): Promise<string | void> => {
   myHeaders.append('Content-Type', 'application/json')
   const raw = JSON.stringify({ ...data })
   const myRedirect = 'follow'
-  return fetch('https://zt8gesobv3.execute-api.us-east-1.amazonaws.com/dev', {
-    method: 'POST',
-    headers: myHeaders,
-    body: raw,
-    redirect: myRedirect,
-  })
-    .then((response) => response.text())
-    .then((result) => JSON.parse(result).body as string)
-    .catch((error) => console.log('error', error))
+  return (
+    fetch('https://zt8gesobv3.execute-api.us-east-1.amazonaws.com/dev', {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: myRedirect,
+    })
+      // memo:配列で撮りたい場合
+      // .then((response) => {
+      //   console.log(response.json())
+      // })
+      .then((response) => response.text())
+      .then((result) => {
+        console.log(JSON.parse(result).body)
+        return JSON.parse(result).test1
+      })
+      .catch((error) => console.log('error', error))
+  )
 }
 
 export { useFetchWinning }
