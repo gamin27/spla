@@ -1,7 +1,7 @@
 <template>
-  <h1>Stage</h1>
+  <h1>Schedule</h1>
   <section class="rule">
-    <div class="rule__label">Schedule</div>
+    <div class="rule__label">Rule</div>
     <div class="rule__name">
       <div v-if="stage.rule">
         <div>{{ stage.rule }}</div>
