@@ -2,7 +2,7 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import Home from '@/views/home/home.vue'
 import WinningPercentage from '@/views/winning/winning.vue'
 import About from '@/views/about/about.vue'
-import Stage from '@/views/stage/stage.vue'
+import Schedule from '@/views/schedule/schedule.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -16,9 +16,9 @@ const routes: Array<RouteRecordRaw> = [
     component: About,
   },
   {
-    path: '/stage',
-    name: 'Stage',
-    component: Stage,
+    path: '/schedule',
+    name: 'Schedule',
+    component: Schedule,
   },
   {
     path: '/WinningPercentage',

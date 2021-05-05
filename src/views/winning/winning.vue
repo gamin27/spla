@@ -146,10 +146,7 @@ export default defineComponent({
   font-weight: bold;
   text-align: left;
 }
-h1 {
-  text-align: center;
-  font-size: 48px;
-}
+
 label {
   font-size: 24px;
 }
