@@ -22,7 +22,7 @@ export default defineComponent({
   name: 'about',
   setup() {
     const developers = reactive([
-      { id: 1, name: 'Aizutowai🍮', image: 'https://pbs.twimg.com/profile_images/1323753389654618112/mX1CvRms_400x400.jpg' },
+      { id: 1, name: 'aizutowai🍮', image: 'https://pbs.twimg.com/profile_images/1323753389654618112/mX1CvRms_400x400.jpg' },
       { id: 2, name: 'gamine🍑', image: 'img/gamine.jpg' },
     ])
     return { developers }
