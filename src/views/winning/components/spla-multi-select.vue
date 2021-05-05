@@ -43,3 +43,12 @@ export default defineComponent({
   },
 })
 </script>
+
+<style lang="scss" scoped>
+.p-multiselect-panel .p-multiselect-header .p-checkbox {
+  display: none !important;
+}
+.p-multiselect-header {
+  justify-content: flex-end !important;
+}
+</style>

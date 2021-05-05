@@ -1,0 +1,13 @@
+/* 
+よくはないけど、primeVUEに対してグローバルにコンポーネントを書き換える。
+ここで全件選択の表示ウを無くしている。邪魔だから
+いつか直したいけど、解決方法がわからない
+*/
+
+.p-multiselect-panel .p-multiselect-header .p-checkbox {
+  display: none;
+}
+.p-multiselect-panel .p-multiselect-header {
+  justify-content: flex-end;
+  background-color: rgba(0, 0, 0, 0) !important;
+}

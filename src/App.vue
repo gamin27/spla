@@ -11,7 +11,15 @@ import router from './router/index';
   <router-view />
 </template>
 
+<script>
+export default {
+  name: 'App',
+}
+</script>
+
 <style lang="scss" scoded>
+@import 'reset-css';
+@import url('views/common/css/spla-multi-select.css');
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
