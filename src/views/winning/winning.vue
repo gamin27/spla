@@ -70,7 +70,9 @@
         <Button label="callAPI" class="submit" @click="submit" />
       </div>
       <div style="margin-top: 48px">
-        <div v-if="isLoading" style="color: red">loading...</div>
+        <div style="height: 32px">
+          <span v-if="isLoading" style="color: red">loading...</span>
+        </div>
         <div>あなたの勝率は・・・</div>
         <div>{{ callAnswer }}</div>
       </div>
