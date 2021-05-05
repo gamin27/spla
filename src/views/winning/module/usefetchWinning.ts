@@ -18,8 +18,7 @@ const useFetchWinning = async (data: FormData): Promise<string | void> => {
       // })
       .then((response) => response.text())
       .then((result) => {
-        console.log(JSON.parse(result).body)
-        return JSON.parse(result).test1
+        return JSON.parse(result).body
       })
       .catch((error) => console.log('error', error))
   )
