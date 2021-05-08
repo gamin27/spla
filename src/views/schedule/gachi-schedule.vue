@@ -1,7 +1,13 @@
 <template>
   <h1>Schedule</h1>
+  <div class="header">
+    <ul>
+      <li><router-link to="/router/gachi"></router-link></li>
+    </ul>
+    <router-view />
+  </div>
   <div v-if="stages[0]">
-    <article v-for="stage in stages" :key="stage.start" class="article">
+    <article v-for="stage in stages" :key="stage.start">
       <section class="time section">
         <div v-if="stage.start">{{ time(stage.start) }} ~ {{ time(stage.end) }}</div>
         <div v-else><Skeleton :borderRadius="bprderRadius" height="18px" width="180px" style="margin: auto" /></div>
@@ -80,7 +86,7 @@ import { defineComponent, ref } from '@vue/runtime-core'
 import Skeleton from 'primevue/skeleton'
 
 export default defineComponent({
-  name: 'Schedule',
+  name: 'GachiSchedule',
   components: {
     Skeleton,
   },
@@ -116,8 +122,9 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 $main-color: #80c683;
-.article {
-  margin-top: 48px;
+.header {
+  display: flex;
+  justify-content: center;
 }
 .section {
   margin: 16px auto 0;
